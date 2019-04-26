@@ -7,7 +7,7 @@
       <div class="col-lg-8 mx-auto">
         <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
         <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-        <form method="POST" action="/registrar">
+        <form method="POST" action="/registrar" id="checkGroup">
           <!--Card 1-->
           <div class="container-fluid">
             <div class="card">
@@ -27,9 +27,10 @@
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title">Nivel</h4>
-                <input type="checkbox" name="nivel" class="check" value="Basico"> Básico
-                <input type="checkbox" name="nivel" class="check" value="Intermedio"> Intermedio
-                <input type="checkbox" name="nivel" class="check" value="Avanzado"> Avanzado
+                  <div class="form-group options"></div>
+                  <input type="checkbox" name="nivel" class="check" value="Basico"> Básico
+                  <input type="checkbox" name="nivel" class="check" value="Intermedio"> Intermedio
+                  <input type="checkbox" name="nivel" class="check" value="Avanzado"> Avanzado
               </div>
             </div>
             <br>
@@ -39,7 +40,7 @@
               <div class="card-body">
                 <h4 class="card-title">Método de pago</h4>
                 <label class="radio-inline"><input type="radio" name="pago" value="Efectivo" checked>Efectivo</label>
-                <label class="radio-inline"><input type="radio" name="pago" value="Tarjeta">Tarjeta</label>          
+                <label class="radio-inline"><input type="radio" name="pago" value="Tarjeta">Tarjeta</label>
               </div>
             </div>
 
@@ -48,7 +49,7 @@
 
           <div class="form-group">
             <br>
-            <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Siguiente</button>
+            <button type="submit" class="btn btn-primary btn-xl" name="submit">Siguiente</button>
           </div>
         </form>
       </div>
@@ -124,4 +125,22 @@
   //     $('.check').not(this).prop('checked', false);
   //   });
   // });
+  function validateGrp() {
+  let things = document.querySelectorAll('.check')
+  let checked = 0;
+  for (let thing of things) {
+    thing.checked && checked++
+  }
+  if (checked) {
+    things[things.length - 1].setCustomValidity("");
+    document.getElementById('checkGroup').submit();
+  } else {
+    things[things.length - 1].setCustomValidity("You must check at least one checkbox");
+    things[things.length - 1].reportValidity();
+  }
+}
+
+document.querySelector('[name=submit]').addEventListener('click', () => {
+  validateGrp()
+});
 </script>

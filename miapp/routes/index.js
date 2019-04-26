@@ -47,7 +47,7 @@ router.post('/registrar', function (req, res, next) {
     }
   }
 
-
+console.log("cantidad de módulos: " + nivel);
 //Método de pago
 if (pago == "Efectivo") {
   total = costo - (costo * 0.10);
